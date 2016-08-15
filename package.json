@@ -1,6 +1,6 @@
 {
 	"devDependencies": {
-		"bootstrap": "4.0.0-alpha.3",
+		"bootstrap": "*",
 		"browser-sync": "*",
 		"clean-css": "*",
 		"onchange": "*"
@@ -10,7 +10,8 @@
 		"build": "npm run clean && npm run build.html && npm run build.css",
 		"clean": "rm -Rf build",
 		"build.html": "mkdir -p build && cp src/*.html build",
-		"build.css": "cleancss --s0 --skip-advanced --skip-rebase --output build/hello-world.min.css src/hello-world.css",
+		"build.css": "cleancss --source-map --source-map-inline-sources --s0 --skip-advanced --skip-rebase --output build/hello-world.min.css src/hello-world.css && npm run srcmap.css",
+		"srcmap.css": "sed -i .old -e 's/\"sources\":/\"sourceRoot\":\"src:\\\/\\\/\\\/\",\"sources\":/g; s/\"..\\\/node_modules\\\//\"node_modules\\\//g; s/\"src\\\//\"hello-world\\\//g' build/*.map",
 		"watch": "npm run watch.html && npm run watch.css",
 		"watch.html": "onchange src/*.html -- npm run build.html &",
 		"watch.css": "onchange src/*.css -- npm run build.css &",
