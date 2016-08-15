@@ -1,0 +1,12 @@
+{
+	"devDependencies": {
+		"browser-sync": "*"
+	},
+	"private": true,
+	"scripts": {
+		"build": "npm run clean && npm run build.html",
+		"clean": "rm -Rf build",
+		"build.html": "mkdir -p build && cp src/*.html build",
+		"serve": "npm run build && browser-sync start --server build --files build --port 8000 --no-notify --no-open"
+	}
+}
